@@ -31,4 +31,9 @@ apiRouter.get(endpoint + 'produtos', (req, res) => {
     });
 });
 
+apiRouter.get(endpoint + 'produtos/:id', (req, res) => { ... })
+apiRouter.post(endpoint + 'produtos', (req, res) => { ... })
+apiRouter.put(endpoint + 'produtos/:id', (req, res) => { ... })
+apiRouter.delete(endpoint + 'produtos/:id', (req, res) => { ... })
+
 module.exports = apiRouter;
