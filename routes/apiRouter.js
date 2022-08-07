@@ -11,7 +11,7 @@ const knex = require('knex')({
   },
 });
 
-// Request all products
+// Request all foods
 apiRouter.get(endpoint + 'food', (req, res) => {
   knex
     .select('*')
@@ -24,7 +24,7 @@ apiRouter.get(endpoint + 'food', (req, res) => {
     });
 });
 
-// Request a product by id
+// Request a food by id
 apiRouter.get(endpoint + 'food/:id', (req, res) => {
   let id = parseInt(req.params.id);
 
@@ -40,7 +40,7 @@ apiRouter.get(endpoint + 'food/:id', (req, res) => {
     );
 });
 
-// Add a new product
+// Add a new food
 apiRouter.post(endpoint + 'food', (req, res) => {
   knex('food')
     .insert(
@@ -62,7 +62,7 @@ apiRouter.post(endpoint + 'food', (req, res) => {
     );
 });
 
-// Updade a product by id
+// Updade a food by id
 apiRouter.put(endpoint + 'food/:id', (req, res) => {
   let id = parseInt(req.params.id);
   knex('food')
@@ -86,7 +86,7 @@ apiRouter.put(endpoint + 'food/:id', (req, res) => {
     );
 });
 
-// Delete a product by id
+// Delete a food by id
 apiRouter.delete(endpoint + 'food/:id', (req, res) => {
   let id = parseInt(req.params.id);
   knex('food')
