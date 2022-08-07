@@ -12,92 +12,90 @@ const knex = require('knex')({
 });
 
 // Request all products
-apiRouter.get(endpoint + 'produtos', (req, res) => {
+apiRouter.get(endpoint + 'food', (req, res) => {
   knex
     .select('*')
-    .from('produto')
-    .then((produtos) => res.status(200).json(produtos))
+    .from('food')
+    .then((food) => res.status(200).json(food))
     .catch((err) => {
       res.status(500).json({
-        message: 'Erro ao recuperar produtos - ' + err.message,
+        message: 'Erro ao recuperar food - ' + err.message,
       });
     });
 });
 
 // Request a product by id
-apiRouter.get(endpoint + 'produtos/:id', (req, res) => {
+apiRouter.get(endpoint + 'food/:id', (req, res) => {
   let id = parseInt(req.params.id);
 
   knex
     .select('*')
-    .from('produto')
+    .from('food')
     .where('id', id)
-    .then((produtos) => res.json(produtos))
+    .then((food) => res.json(food))
     .catch((err) =>
       res.json({
-        message: `Erro ao recuperar o produto - ${res.status}: ${err.message}`,
+        message: `Erro ao recuperar o food - ${res.status}: ${err.message}`,
       })
     );
 });
 
 // Add a new product
-apiRouter.post(endpoint + 'produtos', (req, res) => {
-  knex('produto')
+apiRouter.post(endpoint + 'food', (req, res) => {
+  knex('food')
     .insert(
       {
-        descricao: req.body.descricao,
-        valor: req.body.valor,
-        marca: req.body.marca,
+        description: req.body.description,
+        value: req.body.value,
+        name: req.body.name,
       },
-      ['id', 'descricao', 'valor', 'marca']
+      ['id', 'description', 'value', 'name']
     )
-    .then((produtos) => {
-      let produto = produtos[0];
-      res.status(201).json({ produto });
+    .then((food) => {
+      let foodRecipe = food[0];
+      res.status(201).json({ foodRecipe });
     })
     .catch((err) =>
       res.json({
-        message: `Erro ao inserir produto - ${res.status}: ${err.message}`,
+        message: `Erro ao inserir food - ${res.status}: ${err.message}`,
       })
     );
 });
 
 // Updade a product by id
-apiRouter.put(endpoint + 'produtos/:id', (req, res) => {
+apiRouter.put(endpoint + 'food/:id', (req, res) => {
   let id = parseInt(req.params.id);
-  knex('produto')
+  knex('food')
     .where('id', id)
     .update(
       {
-        descricao: req.body.descricao,
-        valor: req.body.valor,
-        marca: req.body.marca,
+        description: req.body.description,
+        value: req.body.value,
+        name: req.body.name,
       },
-      ['id', 'descricao', 'valor', 'marca']
+      ['id', 'description', 'value', 'name']
     )
-    .then((produtos) => {
-      let produto = produtos[0];
-      res.status(200).json({ produto });
+    .then((food) => {
+      let foodRecipe = food[0];
+      res.status(200).json({ foodRecipe });
     })
     .catch((err) =>
       res.json({
-        message: `Erro ao atualizar produto - ${res.status}: ${err.message}`,
+        message: `Erro ao atualizar food - ${res.status}: ${err.message}`,
       })
     );
 });
 
 // Delete a product by id
-apiRouter.delete(endpoint + 'produtos/:id', (req, res) => {
+apiRouter.delete(endpoint + 'food/:id', (req, res) => {
   let id = parseInt(req.params.id);
-  knex('produto')
+  knex('food')
     .where('id', id)
     .del()
-    .then(
-      res.status(200).json({ message: `Produto ${id} excluído com sucesso` })
-    )
+    .then(res.status(200).json({ message: `food ${id} excluído com sucesso` }))
     .catch((err) =>
       res.json({
-        message: `Erro ao deletar produto - ${res.status}: ${err.message}`,
+        message: `Erro ao deletar food - ${res.status}: ${err.message}`,
       })
     );
 });
