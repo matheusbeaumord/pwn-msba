@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/app', express.static(path.join(__dirname, '/public')));
+app.use('/app', express.static(path.join(__dirname, './src/public')));
 let port = process.env.PORT || 3000;
 
 app.listen(port);
