@@ -183,6 +183,7 @@ apiRouter.post(endpoint + 'seguranca/login', (req, res) => {
       if (usuarios.length) {
         let usuario = usuarios[0];
         let checkSenha = bcrypt.compareSync(req.body.senha, usuario.senha);
+        console.log(checkSenha);
         if (checkSenha) {
           var tokenJWT = jwt.sign({ id: usuario.id }, process.env.SECRET_KEY, {
             expiresIn: 3600,
@@ -198,7 +199,7 @@ apiRouter.post(endpoint + 'seguranca/login', (req, res) => {
         }
       }
 
-      res.status(200).json({ message: 'Login ou senha incorretos' });
+      res.status(400).json({ message: 'Login ou senha incorretos' });
     })
     .catch((err) => {
       res.status(500).json({
