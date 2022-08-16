@@ -29,6 +29,8 @@ const checkToken = (req, res, next) => {
       res.status(401).json({ message: 'Acesso negado' });
       return;
     }
+    req.usuarioId = decodeToken.id;
+    next();
   });
 };
 
@@ -171,6 +173,7 @@ apiRouter.post(endpoint + 'seguranca/register', (req, res) => {
     });
 });
 
+// login
 apiRouter.post(endpoint + 'seguranca/login', (req, res) => {
   knex
     .select('*')
